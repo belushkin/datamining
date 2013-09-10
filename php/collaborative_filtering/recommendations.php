@@ -69,6 +69,28 @@ function sim_tanimoto($prefs, $person1, $person2)
     return $Nc/($Na + $Nb - $Nc);
 }
 
+// Jaccard index
+function sim_jaccard($prefs, $person1, $person2)
+{
+    $result1 = array();
+    foreach ($prefs[$person1] as $film => $score) {
+	$result1[] = $score;
+    }
+
+    $result2 = array();
+    foreach ($prefs[$person2] as $film => $score) {
+	$result2[] = $score;
+    }
+
+    $arr_intersection	= array_intersect($result1, $result2);
+    $arr_union		= array_merge($result1, $result2);
+    $coefficient	= count( $arr_intersection ) / count( $arr_union );
+
+    return $coefficient;
+}
+
 echo "Euclid distance:     ", sim_distance($critics, 'Lisa Rose', 'Gene Seymour'), "\n";
 echo "Pearson correlation: ", sim_pearson($critics, 'Lisa Rose', 'Gene Seymour'), "\n";
 echo "Tanimoto coefficient: ", sim_tanimoto($critics, 'Lisa Rose', 'Gene Seymour'), "\n";
+echo "Jaccard index: ", sim_jaccard($critics, 'Lisa Rose', 'Gene Seymour'), "\n";
+

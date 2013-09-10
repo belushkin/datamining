@@ -68,7 +68,24 @@ def sim_tanimoto(prefs, p1, p2):
         c[item] = 1;
   return float(len(c))/(len(prefs[p1]) + len(prefs[p2]) - len(c))
 
+# Jaccard index
+def sim_jaccard(prefs, p1, p2):
+  c = []
+  b = []
+  d = []
+  f = []
+  for item in prefs[p1]:
+    c.append(prefs[p1][item])
+
+  for item in prefs[p2]:
+    b.append(prefs[p2][item])
+
+  d = [val for val in c if val in b]
+  f = c + b
+  return float(len(d)) / float(len(f))
+
 print sim_distance(critics, 'Lisa Rose', 'Gene Seymour'), '\n'
 print sim_pearson(critics, 'Lisa Rose', 'Gene Seymour'), '\n'
 print sim_tanimoto(critics, 'Lisa Rose', 'Gene Seymour'), '\n'
+print sim_jaccard(critics, 'Lisa Rose', 'Gene Seymour'), '\n'
 
