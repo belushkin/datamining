@@ -84,10 +84,10 @@ def sim_jaccard(prefs, p1, p2):
   f = c + b
   return float(len(d)) / float(len(f))
 
-print sim_distance(critics, 'Lisa Rose', 'Gene Seymour'), '\n'
-print sim_pearson(critics, 'Lisa Rose', 'Gene Seymour'), '\n'
-print sim_tanimoto(critics, 'Lisa Rose', 'Gene Seymour'), '\n'
-print sim_jaccard(critics, 'Lisa Rose', 'Gene Seymour'), '\n'
+#print sim_distance(critics, 'Lisa Rose', 'Gene Seymour'), '\n'
+#print sim_pearson(critics, 'Lisa Rose', 'Gene Seymour'), '\n'
+#print sim_tanimoto(critics, 'Lisa Rose', 'Gene Seymour'), '\n'
+#print sim_jaccard(critics, 'Lisa Rose', 'Gene Seymour'), '\n'
 
 # Returns the best matches for person from the prefs dictionary.
 # Number of results and similarity function are optional params.
@@ -98,7 +98,7 @@ def topMatches(prefs, person, n=5, similarity = sim_pearson):
   scores.reverse()
   return scores[0:n]
 
-print topMatches(critics, 'Toby', n=3), '\n'
+#print topMatches(critics, 'Toby', n=3), '\n'
 
 # Gets recommendations for a person by using a weighted average
 # of every other user's rankings
@@ -131,5 +131,25 @@ def getRecommendations(prefs,person,similarity=sim_pearson):
   rankings.reverse()
   return rankings
 
-print getRecommendations(critics, 'Toby')
+#print getRecommendations(critics, 'Toby')
+
+def transformPrefs(prefs):
+  result={}
+  for person in prefs:
+    for item in prefs[person]:
+      result.setdefault(item,{})
+      
+      # Flip item and person
+      result[item][person]=prefs[person][item]
+  return result
+
+#print transformPrefs(critics)
+
+movies = transformPrefs(critics)
+#print topMatches(movies, 'Superman Returns')
+#print getRecommendations(movies, 'Just My Luck')
+
+
+
+
 

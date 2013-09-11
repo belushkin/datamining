@@ -89,10 +89,10 @@ function sim_jaccard($prefs, $person1, $person2)
     return $coefficient;
 }
 
-echo "Euclid distance:     ", sim_distance($critics, 'Lisa Rose', 'Gene Seymour'), "\n";
-echo "Pearson correlation: ", sim_pearson($critics, 'Lisa Rose', 'Gene Seymour'), "\n";
-echo "Tanimoto coefficient: ", sim_tanimoto($critics, 'Lisa Rose', 'Gene Seymour'), "\n";
-echo "Jaccard index: ", sim_jaccard($critics, 'Lisa Rose', 'Gene Seymour'), "\n";
+//echo "Euclid distance:     ", sim_distance($critics, 'Lisa Rose', 'Gene Seymour'), "\n";
+//echo "Pearson correlation: ", sim_pearson($critics, 'Lisa Rose', 'Gene Seymour'), "\n";
+//echo "Tanimoto coefficient: ", sim_tanimoto($critics, 'Lisa Rose', 'Gene Seymour'), "\n";
+//echo "Jaccard index: ", sim_jaccard($critics, 'Lisa Rose', 'Gene Seymour'), "\n";
 
 function topMatches($prefs, $person, $n = 5, $similarity = 'sim_pearson') 
 {
@@ -106,7 +106,7 @@ function topMatches($prefs, $person, $n = 5, $similarity = 'sim_pearson')
     return array_reverse($scores);
 }
 
-print_r(topMatches($critics, 'Toby', $n = 3)); echo "\n";
+//print_r(topMatches($critics, 'Toby', $n = 3)); echo "\n";
 
 function getRecommendations($prefs, $person, $similarity = 'sim_pearson') 
 {
@@ -133,7 +133,24 @@ function getRecommendations($prefs, $person, $similarity = 'sim_pearson')
     return array_reverse($rankings);
 }
 
-print_r(getRecommendations($critics, 'Toby'));
+//print_r(getRecommendations($critics, 'Toby'));
+
+function transformPrefs($prefs) 
+{
+    $result = array();
+    foreach ($prefs as $person => $films) {
+	foreach ($films as $film => $score) {
+	    $result[$film][$person] = $score;
+	}
+    }
+    return $result;
+}
+
+//print_r(transformPrefs($critics));
+
+$movies = transformPrefs($critics);
+//print_r(topMatches($movies, 'Superman Returns'));
+//print_r(getRecommendations($movies, 'Just My Luck'));
 
 
 
