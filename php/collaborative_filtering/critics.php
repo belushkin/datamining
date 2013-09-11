@@ -24,11 +24,11 @@ $critics = array(
         'The Night Listener'    => 4.0
     ),
     'Claudia Puig' => array(
-        'Snakes on a Plane'     => 0.5, 
-        'Just My Luck'          => 0.0, 
-        'The Night Listener'    => 0.5,
-        'Superman Returns'      => 0.0, 
-        'You, Me and Durpee'    => 0.5,
+        'Snakes on a Plane'     => 3.5, 
+        'Just My Luck'          => 3.0, 
+        'The Night Listener'    => 4.0,
+        'Superman Returns'      => 4.0, 
+        'You, Me and Durpee'    => 2.5,
     ),
     'Mick LaSalle' => array(
         'Lady in the water'     => 3.0, 

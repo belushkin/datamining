@@ -94,3 +94,48 @@ echo "Pearson correlation: ", sim_pearson($critics, 'Lisa Rose', 'Gene Seymour')
 echo "Tanimoto coefficient: ", sim_tanimoto($critics, 'Lisa Rose', 'Gene Seymour'), "\n";
 echo "Jaccard index: ", sim_jaccard($critics, 'Lisa Rose', 'Gene Seymour'), "\n";
 
+function topMatches($prefs, $person, $n = 5, $similarity = 'sim_pearson') 
+{
+    $scores = array();
+    foreach ($prefs as $other => $films) {
+	if ($other != $person) {
+	    $scores[$other] = $similarity($prefs, $person, $other);
+	}
+    }
+    asort($scores);
+    return array_reverse($scores);
+}
+
+print_r(topMatches($critics, 'Toby', $n = 3)); echo "\n";
+
+function getRecommendations($prefs, $person, $similarity = 'sim_pearson') 
+{
+    $totals = array();
+    $simSum = array();
+    foreach ($prefs as $other => $films) {
+	if ($other != $person) {
+	    $sim = $similarity($prefs, $person, $other);
+	    if ($sim <= 0) {
+		continue;
+	    }
+    	    foreach ($prefs[$other] as $film => $score) {
+		if (!isset($prefs[$person][$film]) || $prefs[$person][$film] == 0) {
+		    @$totals[$film] += $score * $sim;
+		    @$simSum[$film] += $sim;
+		}
+            }
+	}
+    }
+    foreach ($totals as $film => $total) {
+	$rankings[$film] = $total/$simSum[$film];
+    }
+    asort($rankings);
+    return array_reverse($rankings);
+}
+
+print_r(getRecommendations($critics, 'Toby'));
+
+
+
+
+
